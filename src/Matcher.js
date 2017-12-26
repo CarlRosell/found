@@ -255,4 +255,8 @@ export default class Matcher {
           : value === undefined,
     );
   }
+
+  replaceRouteConfig(routeConfig) {
+    this.routeConfig = routeConfig;
+  }
 }
