@@ -9,4 +9,4 @@ $ npm i
 $ npm start
 ```
 
-Then open [http://localhost:8080/](http://localhost:8080/) in your browser.
+Then open [http://localhost:8080/](http://localhost:8080/) in your browser. Modify [`routeConfig.js`](src/routeConfig.js) to see the hot reloading in action.
