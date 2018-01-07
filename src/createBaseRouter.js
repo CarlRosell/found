@@ -94,6 +94,10 @@ export default function createBaseRouter({ render }) {
         this.shouldResolveMatch = false;
         this.resolveMatch();
       }
+    }
+
+    componentWillUnmount() {
+      this.mounted = false;
 
       if (__DEV__ && typeof window !== 'undefined') {
         /* eslint-env browser */
@@ -104,10 +108,6 @@ export default function createBaseRouter({ render }) {
         /* eslint-enable no-underscore-dangle */
         /* eslint-env browser: false */
       }
-    }
-
-    componentWillUnmount() {
-      this.mounted = false;
     }
 
     async resolveMatch() {

@@ -1,5 +1,6 @@
 import ServerProtocol from 'farce/lib/ServerProtocol';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-dom/test-utils';
 
 import createFarceRouter from '../src/createFarceRouter';
@@ -9,12 +10,18 @@ import hotRouteConfig from '../src/hotRouteConfig';
 import { InstrumentedResolver } from './helpers';
 
 describe('hotRouteConfig', () => {
+  let container;
+
+  beforeEach(() => {
+    container = document.createElement('div');
+  });
+
   afterEach(() => {
+    ReactDOM.unmountComponentAtNode(container);
+
     /* eslint-env browser */
-    /* eslint-disable no-underscore-dangle */
+    // eslint-disable-next-line no-underscore-dangle
     delete window.__FOUND_HOT_RELOAD__;
-    delete window.__FOUND_REPLACE_ROUTE_CONFIG__;
-    /* eslint-enable no-underscore-dangle */
     /* eslint-env browser: false */
   });
 
@@ -34,8 +41,10 @@ describe('hotRouteConfig', () => {
     });
 
     const resolver = new InstrumentedResolver();
-    const instance = ReactTestUtils.renderIntoDocument(
+    // eslint-disable-next-line react/no-render-return-value
+    const instance = ReactDOM.render(
       <Router resolver={resolver} />,
+      container,
     );
 
     await resolver.done;
