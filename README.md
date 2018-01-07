@@ -823,7 +823,7 @@ When using hot reloading via [React Hot Loader](https://gaearon.github.io/react-
 export default hotRouteConfig(routeConfig);
 ```
 
-This will replace the route configuration and rerun the match with the current location whenever the route configuration changes.
+This will replace the route configuration and rerun the match with the current location whenever the route configuration changes. As with React Hot Loader, this is safe to do unconditionally, as it will have no effect in production.
 
 > **Note:** Changes to route components also count as route configuration changes. If your routes have asynchronous data dependencies, ensure that the data are cached. Otherwise, the router will refetch data every time a route component changes.
 
