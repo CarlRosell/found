@@ -136,7 +136,7 @@ describe('render', () => {
     expect(quxNode.textContent).toBe('a');
   });
 
-  it('should support reloading route config', async () => {
+  it('should support reloading the route configuration', async () => {
     const Router = createFarceRouter({
       historyProtocol: new ServerProtocol('/foo'),
       routeConfig: [

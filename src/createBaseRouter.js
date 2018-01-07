@@ -60,12 +60,15 @@ export default function createBaseRouter({ render }) {
       if (__DEV__ && typeof window !== 'undefined') {
         /* eslint-env browser */
         /* eslint-disable no-underscore-dangle */
-        warning(
-          !window.__FOUND_REPLACE_ROUTE_CONFIG__,
-          'Replacing existing hot reloading hook.',
-        );
+        if (window.__FOUND_HOT_RELOAD__) {
+          warning(
+            !window.__FOUND_REPLACE_ROUTE_CONFIG__,
+            'Replacing existing hot reloading hook. Do not render more than ' +
+              'one router instance when using hot reloading.',
+          );
 
-        window.__FOUND_REPLACE_ROUTE_CONFIG__ = this.props.router.replaceRouteConfig;
+          window.__FOUND_REPLACE_ROUTE_CONFIG__ = this.props.router.replaceRouteConfig;
+        }
         /* eslint-enable no-underscore-dangle */
         /* eslint-env browser: false */
       }
@@ -90,6 +93,16 @@ export default function createBaseRouter({ render }) {
       if (this.shouldResolveMatch) {
         this.shouldResolveMatch = false;
         this.resolveMatch();
+      }
+
+      if (__DEV__ && typeof window !== 'undefined') {
+        /* eslint-env browser */
+        /* eslint-disable no-underscore-dangle */
+        if (window.__FOUND_HOT_RELOAD__) {
+          delete window.__FOUND_REPLACE_ROUTE_CONFIG__;
+        }
+        /* eslint-enable no-underscore-dangle */
+        /* eslint-env browser: false */
       }
     }
 
